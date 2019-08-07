@@ -1,0 +1,5 @@
+language: minimal
+
+before_install:
+    - docker build -t aur-ci -f .travis/Dockerfile .travis
+    - docker run aur-ci
