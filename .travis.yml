@@ -3,5 +3,15 @@ language: minimal
 before_install:
     - .travis/build-images.sh
 
+env:
+    - BUILD_PACKAGE=direwolf-git
+    - BUILD_PACKAGE=kalibrate-bladerf-git
+    - BUILD_PACKAGE=nerd-fonts-roboto-mono
+    - BUILD_PACKAGE=steam-fonts
+    - BUILD_PACKAGE=vna_j
+    - BUILD_PACKAGE=dwarview-git
+    - BUILD_PACKAGE=nerd-fonts-droid-sans-mono
+    - BUILD_PACKAGE=python-pyxel
+    - BUILD_PACKAGE=usbsoftrock
 script:
-    - .travis/build-all.sh
+    - .travis/build-single.sh
