@@ -7,9 +7,6 @@ RUN pacman-key --init && \
 RUN useradd -ms /bin/bash builduser
 RUN echo "builduser ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builduser
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
-
 USER builduser
 
 RUN cd /tmp && \
@@ -19,3 +16,5 @@ RUN cd /tmp && \
     makepkg --noconfirm --syncdeps --install && \
     cd /tmp && \
     rm -rf yay yay.tar.gz
+
+ENTRYPOINT ["/bin/bash"]
