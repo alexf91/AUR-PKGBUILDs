@@ -1,17 +1,38 @@
 language: minimal
 
-before_install:
-    - .travis/build-images.sh
+matrix:
+    include:
+        - name: "Build direwolf-git"
+          env: TARGET=build PACKAGE=direwolf-git
 
-env:
-    - BUILD_PACKAGE=direwolf-git
-    - BUILD_PACKAGE=kalibrate-bladerf-git
-    - BUILD_PACKAGE=nerd-fonts-roboto-mono
-    - BUILD_PACKAGE=steam-fonts
-    - BUILD_PACKAGE=vna_j
-    - BUILD_PACKAGE=dwarview-git
-    - BUILD_PACKAGE=nerd-fonts-droid-sans-mono
-    - BUILD_PACKAGE=python-pyxel
-    - BUILD_PACKAGE=usbsoftrock
+        - name: "Build kalibrate-bladerf-git"
+          env: TARGET=build PACKAGE=kalibrate-bladerf-git
+
+        - name: "Build nerd-fonts-roboto-mono"
+          env: TARGET=build PACKAGE=nerd-fonts-roboto-mono
+
+        - name: "Build steam-fonts"
+          env: TARGET=build PACKAGE=steam-fonts
+
+        - name: "Build vna_j"
+          env: TARGET=build PACKAGE=vna_j
+
+        - name: "Build dwarview-git"
+          env: TARGET=build PACKAGE=dwarview-git
+
+        - name: "Build nerd-fonts-droid-sans-mono"
+          env: TARGET=build PACKAGE=nerd-fonts-droid-sans-mono
+
+        - name: "Build python-pyxel"
+          env: TARGET=build PACKAGE=python-pyxel
+        - name: "Check version of python-pyxel"
+          env: TARGET=version PACKAGE=python-pyxel
+
+        - name: "Build usbsoftrock"
+          env: TARGET=build PACKAGE=usbsoftrock
+
+before_install:
+    - .travis/prepare.sh $TARGET
+
 script:
-    - .travis/build-single.sh
+    - .travis/run-test.sh $TARGET $PACKAGE
