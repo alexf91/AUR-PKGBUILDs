@@ -1,7 +1,7 @@
 language: minimal
 
 before_install:
-    - docker build -t aur-ci -f .travis/Dockerfile .travis
+    - .travis/build-images.sh
 
 script:
     - .travis/build-all.sh
