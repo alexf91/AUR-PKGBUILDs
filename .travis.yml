@@ -16,6 +16,8 @@ matrix:
 
         - name: "Build vna_j"
           env: TARGET=build PACKAGE=vna_j
+        - name: "Check version of vna_j"
+          env: TARGET=version PACKAGE=vna_j
 
         - name: "Build dwarview-git"
           env: TARGET=build PACKAGE=dwarview-git

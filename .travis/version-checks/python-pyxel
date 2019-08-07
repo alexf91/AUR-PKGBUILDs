@@ -7,6 +7,9 @@ import re
 import sys
 from urllib2 import urlopen
 
+from _utils import get_current_version
+
+
 # Get the latest version on Github
 response = urlopen("https://api.github.com/repos/kitao/pyxel/tags")
 regex = re.compile(r"^v(?P<version>\d+\.\d+\.\d+)$")
@@ -14,22 +17,7 @@ matches = [regex.match(tag["name"]) for tag in json.loads(response.read())]
 versions = [m.group("version") for m in matches if m is not None]
 upstream = max(versions)
 
-# Get the current version from .SRCINFO
-with open("python-pyxel/.SRCINFO") as fp:
-    lines = [line.strip() for line in fp.readlines()]
-
-current = None
-for line in lines:
-    try:
-        key, value = line.split("=")
-    except ValueError:
-        continue
-
-    key = key.strip()
-    value = value.strip()
-
-    if key == "pkgver":
-        current = value
+current = get_current_version("python-pyxel")
 
 print("Upstream version: %s" % upstream)
 print("AUR version: %s" % current)
