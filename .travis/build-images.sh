@@ -5,4 +5,4 @@
 
 set -e
 
-docker build -t aur-ci -f .travis/Dockerfile .travis
+docker build -t aur-ci -f .travis/docker-image/Dockerfile .travis/docker-image
