@@ -17,7 +17,9 @@ if [ "$1" = "build" ]; then
     exec docker build -t aur-ci -f .travis/docker-image/Dockerfile .travis/docker-image
 
 elif [ "$1" = "version" ]; then
-    # Nothing to prepare
+    # Install Python 3.5 and some support packages.
+    sudo apt update
+    sudo apt install python3 python3-github python3-requests python3-semver
     exit 0
 
 else

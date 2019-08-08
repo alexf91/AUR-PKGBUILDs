@@ -1,21 +1,34 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 """Check for new versions of vna_j by parsing the website."""
 
 import re
 import sys
-from urllib2 import urlopen
+import time
+
+import requests
+
+import semver
 
 from _utils import get_current_version
 
 
 # Get the latest version from the website.
-response = urlopen(
-    "https://vnaj.dl2sba.com/index.php?option=com_content&view=article&id=11:downloads&catid=16&Itemid=118"
-)
+for _ in range(5):
+    try:
+        response = requests.get(
+            "https://vnaj.dl2sba.com/index.php"
+            "?option=com_content&view=article&id=11:downloads&catid=16&Itemid=118"
+        )
+        response.raise_for_status()
+        page = response.text
+    except requests.RequestException:
+        time.sleep(5)
+
+# Search for the version string in the download URL.
 regex = re.compile(r"download\.dl2sba\.com/vnaj/(?P<version>\d+\.\d+\.\d+)")
 
-versions = [m.group("version") for m in regex.finditer(response.read())]
+versions = [m.group("version") for m in regex.finditer(response.text)]
 upstream = max(versions)
 
 current = get_current_version("vna_j")
@@ -23,9 +36,9 @@ current = get_current_version("vna_j")
 print("Upstream version: %s" % upstream)
 print("AUR version: %s" % current)
 
-if current < upstream:
+if semver.compare(current, upstream) < 0:
     print("Package is out of date.")
     sys.exit(1)
-elif current > upstream:
+elif semver.compare(current, upstream) > 0:
     print("Package is newer than upstream release.")
     sys.exit(1)

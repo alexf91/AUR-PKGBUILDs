@@ -1,30 +1,30 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 """Check for new versions of python-pyxel by reading Github tags."""
 
 import json
+import os
 import re
 import sys
-from urllib2 import urlopen
+
+from github import Github
+
+import semver
 
 from _utils import get_current_version
 
 
-# Get the latest version on Github
-response = urlopen("https://api.github.com/repos/kitao/pyxel/tags")
-regex = re.compile(r"^v(?P<version>\d+\.\d+\.\d+)$")
-matches = [regex.match(tag["name"]) for tag in json.loads(response.read())]
-versions = [m.group("version") for m in matches if m is not None]
-upstream = max(versions)
-
+# Get the versions on Github and the repository.
+g = Github(os.environ.get("GITHUB_ACCESS_TOKEN"))
+upstream = g.get_repo("kitao/pyxel").get_tags()[0].name[1:]
 current = get_current_version("python-pyxel")
 
 print("Upstream version: %s" % upstream)
 print("AUR version: %s" % current)
 
-if current < upstream:
+if semver.compare(current, upstream) < 0:
     print("Package is out of date.")
     sys.exit(1)
-elif current > upstream:
+elif semver.compare(current, upstream) > 0:
     print("Package is newer than upstream release.")
     sys.exit(1)
