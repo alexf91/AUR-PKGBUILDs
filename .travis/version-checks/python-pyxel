@@ -11,13 +11,13 @@ from github import Github
 
 import semver
 
-from _utils import get_current_version
+from pkgbuild import SRCINFO
 
 
 # Get the versions on Github and the repository.
 g = Github(os.environ.get("GITHUB_ACCESS_TOKEN"))
 upstream = g.get_repo("kitao/pyxel").get_tags()[0].name[1:]
-current = get_current_version("python-pyxel")
+current = SRCINFO("python-pyxel/.SRCINFO").content["pkgver"]
 
 print("Upstream version: %s" % upstream)
 print("AUR version: %s" % current)

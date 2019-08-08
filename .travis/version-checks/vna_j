@@ -10,7 +10,7 @@ import requests
 
 import semver
 
-from _utils import get_current_version
+from pkgbuild import SRCINFO
 
 
 # Get the latest version from the website.
@@ -28,10 +28,8 @@ for _ in range(5):
 # Search for the version string in the download URL.
 regex = re.compile(r"download\.dl2sba\.com/vnaj/(?P<version>\d+\.\d+\.\d+)")
 
-versions = [m.group("version") for m in regex.finditer(response.text)]
-upstream = max(versions)
-
-current = get_current_version("vna_j")
+upstream = max([m.group("version") for m in regex.finditer(response.text)])
+current = SRCINFO("vna_j/.SRCINFO").content["pkgver"]
 
 print("Upstream version: %s" % upstream)
 print("AUR version: %s" % current)
