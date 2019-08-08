@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+
+"""Check for new versions of the python-grpc package in the community repository."""
+
+import re
+import sys
+import time
+
+import requests
+
+import semver
+
+from pkgbuild import SRCINFO
+
+
+# Get the latest version from Arch Linux website
+for _ in range(5):
+    try:
+        response = requests.get(
+            "https://www.archlinux.org/packages/community/x86_64/python-grpcio/"
+        )
+        response.raise_for_status()
+        page = response.text
+    except requests.RequestException:
+        time.sleep(5)
+
+
+# Search for the version string in the download URL.
+regex = re.compile(r"<h2>python-grpcio (?P<version>\d+\.\d+\.\d+)-\d+</h2>")
+
+upstream = regex.search(page).group("version")
+current = SRCINFO("python-grpcio-tools/.SRCINFO").content["pkgver"]
+
+
+print("Upstream version: %s" % upstream)
+print("AUR version: %s" % current)
+
+if semver.compare(current, upstream) < 0:
+    print("Package is out of date.")
+    sys.exit(1)
+elif semver.compare(current, upstream) > 0:
+    print("Package is newer than upstream release.")
+    sys.exit(1)
