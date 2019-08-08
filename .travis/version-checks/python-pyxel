@@ -2,9 +2,7 @@
 
 """Check for new versions of python-pyxel by reading Github tags."""
 
-import json
 import os
-import re
 import sys
 
 from github import Github
