@@ -23,6 +23,11 @@ matrix:
         - name: "Check version of python-grpcio-tools"
           env: TARGET=version PACKAGE=python-grpcio-tools
 
+        - name: "Build python-projectq"
+          env: TARGET=build PACKAGE=python-projectq
+        - name: "Check version of python-projectq"
+          env: TARGET=version PACKAGE=python-projectq
+
         - name: "Build python-pyxel"
           env: TARGET=build PACKAGE=python-pyxel
         - name: "Check version of python-pyxel"
