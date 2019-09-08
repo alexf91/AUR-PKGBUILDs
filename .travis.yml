@@ -18,6 +18,11 @@ matrix:
         - name: "Build nerd-fonts-droid-sans-mono"
           env: TARGET=build PACKAGE=nerd-fonts-droid-sans-mono
 
+        - name: "Build python-aioconsole"
+          env: TARGET=build PACKAGE=python-aioconsole
+        - name: "Check version of python-aioconsole"
+          env: TARGET=version PACKAGE=python-aioconsole
+
         - name: "Build python-grpcio-tools"
           env: TARGET=build PACKAGE=python-grpcio-tools
         - name: "Check version of python-grpcio-tools"
