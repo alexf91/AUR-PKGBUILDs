@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=LegacyClonk
+Comment=An action-packed game of strategy, tactics, and skill.
+Comment[de]=Ein actiongeladenes Taktikspiel.
+GenericName=Multiplayer action, tactics and skill game
+GenericName[de]=Action-, Taktik- und Geschicklichkeitspiel
+Icon=legacyclonk
+Exec=legacyclonk
+Categories=Game;ActionGame;StrategyGame;ArcadeGame;
+StartupNotify=true
+MimeType=x-scheme-handler/clonk;x-scheme-handler/legacyclonk;

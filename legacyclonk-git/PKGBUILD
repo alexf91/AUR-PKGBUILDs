@@ -1,0 +1,95 @@
+# Maintainer: Alexander Fasching <fasching.a91@gmail.com>
+# Contributor: George Tokmaji <tokmajigeorge@gmail.com>
+pkgname=legacyclonk-git
+_pkgname=legacyclonk
+pkgver=r318.1230689
+pkgrel=1
+pkgdesc="An entertaining, action-packed game of strategy, tactics, and skill."
+arch=('i686' 'x86_64')
+url="http://clonk.de"
+license=('ISC' 'CCPL:by-nc' 'custom:trademark' 'LGPL')
+provides=('legacyclonk')
+conflicts=('legacyclonk')
+depends=('glu' 'libxpm' 'sdl_mixer' 'gtk2' 'libpng12'
+         'libjpeg-turbo' 'desktop-file-utils' 'timidity++' 'glew')
+makedepends=('git' 'cmake')
+source=("$pkgname::git+https://github.com/legacyclonk/LegacyClonk.git"
+        "http://www.clonkx.de/rage/cr_full_linux.tar.bz2"
+        "legacyclonk.xml"
+        "legacyclonk.desktop"
+        "legacyclonk.sh")
+md5sums=('SKIP'
+         'a8bb948f02ac9d7950266c2ffbb7692a'
+         '537f7602ed6738da8b486de07577662d'
+         'f87f34c51c8d5b46d13b9c5c65f4c5fe'
+         '52768f12dab5878cdb9896c09c5a12f2')
+
+pkgver() {
+  cd "$pkgname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd "$pkgname"
+  rm 'licenses/LGPL.txt'
+  rm 'licenses/OpenSSL.txt'
+}
+
+build() {
+  cd "$pkgname"
+  mkdir -p build && cd build
+  cmake ..
+  make
+}
+
+package() {
+  cd "$pkgname"
+  # create directories
+  install -d "$pkgdir/usr/share/licenses/$pkgname"
+  install -d "$pkgdir/usr/share/icons/hicolor/48x48/mimetypes"
+
+  # install licenses
+  install -Dm644 licenses/clonk_{trademark,source}_license.txt "$pkgdir/usr/share/licenses/$pkgname/"
+
+  mkdir -p "$pkgdir/usr/share/$_pkgname"
+
+  # Create System.c4g and Graphics.c4g
+  cd build
+  rm -rf System.c4g && cp -r ../planet/System.c4g System.c4g
+  ./c4group System.c4g -p
+  rm -rf Graphics.c4g && cp -r ../planet/Graphics.c4g Graphics.c4g
+  ./c4group Graphics.c4g -p
+
+  # Install LegacyClonk binaries
+  cp -f clonk "$pkgdir/usr/share/$_pkgname/clonk"
+  cp -f c4group "$pkgdir/usr/share/$_pkgname/c4group"
+  cp -f System.c4g "$pkgdir/usr/share/$_pkgname/System.c4g"
+  cp -f Graphics.c4g "$pkgdir/usr/share/$_pkgname/Graphics.c4g"
+
+  # Install original Clonk Rage files
+  cd "$srcdir/cr_full_linux"
+  install -Dm644 LGPL.txt "$pkgdir/usr/share/licenses/$pkgname/"
+  # TODO: Use better icon
+  install -Dm644 icons/cr.png "$pkgdir"/usr/share/icons/hicolor/48x48/apps/legacyclonk.png
+  # TODO: Move this into a clonk-common package
+  install -Dm644 icons/c4{d,f,g,k,p,s,u}.png "$pkgdir"/usr/share/icons/hicolor/48x48/mimetypes/
+  install -Dm644 "$srcdir/legacyclonk.xml" "$pkgdir/usr/share/mime/packages/legacyclonk.xml"
+
+  rm -f System.c4g Graphics.c4g
+  install -Dm644 *.c4{d,f,g} "$pkgdir/usr/share/$_pkgname/"
+
+  # Change the group so that all users can write to it.
+  # TODO: Submit upstream patches to get rid of this
+  chgrp -R games "$pkgdir/usr/share/$_pkgname"
+  chmod -R g+w "$pkgdir/usr/share/$_pkgname"
+
+  chmod 754 "$pkgdir"/usr/share/$_pkgname/clonk
+  chown root:games "$pkgdir"/usr/share/$_pkgname/clonk
+  chmod 754 "$pkgdir"/usr/share/$_pkgname/c4group
+  chown root:games "$pkgdir"/usr/share/$_pkgname/c4group
+
+  # Desktop and commandline launcher
+  mkdir -p "$pkgdir/usr/share/applications"
+  install -Dm644 "$srcdir/legacyclonk.desktop" "$pkgdir/usr/share/applications/legacyclonk.desktop"
+  install -Dm755 "$srcdir/legacyclonk.sh" "$pkgdir/usr/bin/legacyclonk"
+}
