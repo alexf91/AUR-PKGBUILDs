@@ -13,15 +13,11 @@ fi
 
 
 if [ "$1" = "build" ]; then
-    # Mount the whole repo and copy the package we want to build to a separate
-    # directory. This avoids cluttering the base repo.
+    # Mount the whole repository.
     exec docker run \
         -it --rm \
         -v $PWD:/repo \
-        aur-ci \
-        -c "cp -r /repo/$2 /tmp/build-pkg && \
-            cd /tmp/build-pkg && \
-            makepkg --noconfirm --syncdeps --cleanbuild --install"
+        aur-ci $2
 
 elif [ "$1" = "version" ]; then
     # Execute the version script.
