@@ -9,5 +9,7 @@ RUN pacman-key --init && \
 RUN useradd -ms /bin/bash builduser
 RUN echo "builduser ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builduser
 
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+
 USER builduser
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
