@@ -2,7 +2,7 @@
 # Contributor: George Tokmaji <tokmajigeorge@gmail.com>
 pkgname=legacyclonk-git
 _pkgname=legacyclonk
-pkgver=r318.1230689
+pkgver=r319.9521a67
 pkgrel=1
 pkgdesc="An entertaining, action-packed game of strategy, tactics, and skill."
 arch=('i686' 'x86_64')
@@ -38,7 +38,11 @@ prepare() {
 build() {
   cd "$pkgname"
   mkdir -p build && cd build
-  cmake ..
+
+  CFLAGS="-isystem /usr/include/harfbuzz" CXXFLAGS="-isystem /usr/include/harfbuzz" cmake \
+    -DWITH_DEVELOPER_MODE=1 \
+    ..
+
   make
 }
 
