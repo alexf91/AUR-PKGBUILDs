@@ -23,6 +23,11 @@ matrix:
         - name: "Check version of python-aioconsole"
           env: TARGET=version PACKAGE=python-aioconsole
 
+        - name: "Build python-aiomonitor"
+          env: TARGET=build PACKAGE=python-aiomonitor
+        - name: "Check version of python-aiomonitor"
+          env: TARGET=version PACKAGE=python-aiomonitor
+
         - name: "Build python-grpcio-tools"
           env: TARGET=build PACKAGE=python-grpcio-tools
         - name: "Check version of python-grpcio-tools"
