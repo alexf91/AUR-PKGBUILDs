@@ -20,18 +20,21 @@ pkgbase = legacyclonk-git
 	depends = desktop-file-utils
 	depends = timidity++
 	depends = glew
+	optdepends = wine: Support for the editor
 	provides = legacyclonk
 	conflicts = legacyclonk
 	source = legacyclonk-git::git+https://github.com/legacyclonk/LegacyClonk.git
 	source = http://www.clonkx.de/rage/cr_full_linux.tar.bz2
+	source = http://www.clonkx.de/rage/cr_full_win32.exe
 	source = legacyclonk.xml
 	source = legacyclonk.desktop
 	source = legacyclonk.sh
 	md5sums = SKIP
 	md5sums = a8bb948f02ac9d7950266c2ffbb7692a
+	md5sums = b1e7cf51b50fb60938543102cd09d397
 	md5sums = 537f7602ed6738da8b486de07577662d
 	md5sums = f87f34c51c8d5b46d13b9c5c65f4c5fe
-	md5sums = 52768f12dab5878cdb9896c09c5a12f2
+	md5sums = 3b55d44cbace886a4524599d93884ee8
 
 pkgname = legacyclonk-git
 

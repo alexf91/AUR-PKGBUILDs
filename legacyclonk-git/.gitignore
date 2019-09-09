@@ -3,3 +3,4 @@ src
 pkg
 legacyclonk-git-*.pkg.tar.xz
 cr_full_linux.tar.bz2
+cr_full_win32.exe

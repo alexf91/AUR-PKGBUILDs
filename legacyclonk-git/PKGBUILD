@@ -10,19 +10,23 @@ url="http://clonk.de"
 license=('ISC' 'CCPL:by-nc' 'custom:trademark' 'LGPL')
 provides=('legacyclonk')
 conflicts=('legacyclonk')
+makedepends=('7z')
 depends=('glu' 'libxpm' 'sdl_mixer' 'gtk2' 'libpng12'
          'libjpeg-turbo' 'desktop-file-utils' 'timidity++' 'glew')
+optdepends=('wine: Support for the editor')
 makedepends=('git' 'cmake')
 source=("$pkgname::git+https://github.com/legacyclonk/LegacyClonk.git"
         "http://www.clonkx.de/rage/cr_full_linux.tar.bz2"
+        "http://www.clonkx.de/rage/cr_full_win32.exe"
         "legacyclonk.xml"
         "legacyclonk.desktop"
         "legacyclonk.sh")
 md5sums=('SKIP'
          'a8bb948f02ac9d7950266c2ffbb7692a'
+         'b1e7cf51b50fb60938543102cd09d397'
          '537f7602ed6738da8b486de07577662d'
          'f87f34c51c8d5b46d13b9c5c65f4c5fe'
-         '52768f12dab5878cdb9896c09c5a12f2')
+         '3b55d44cbace886a4524599d93884ee8')
 
 pkgver() {
   cd "$pkgname"
@@ -81,6 +85,12 @@ package() {
 
   rm -f System.c4g Graphics.c4g
   install -Dm644 *.c4{d,f,g} "$pkgdir/usr/share/$_pkgname/"
+
+  # Install the editor from the Windows version.
+  7z e -o"$pkgdir/usr/share/$_pkgname/" "$srcdir/cr_full_win32.exe" "Editor.exe"
+
+  # Link Clonk.exe to the clonk executable to support launch from the editor.
+  ln -s "clonk" "$pkgdir/usr/share/$_pkgname/Clonk.exe"
 
   # Change the group so that all users can write to it.
   # TODO: Submit upstream patches to get rid of this
