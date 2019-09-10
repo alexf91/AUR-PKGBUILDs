@@ -1,9 +1,8 @@
 #!/bin/sh
 
-# Wine settings for editor.
-# TODO: Make this optional in case Wine is not installed.
-# TODO: Use a hidden folder, but then the editor does not work.
-export WINEPREFIX="$HOME/LegacyClonk/wine"
+# Path setup for Clonk and Wine.
+export CLONKPREFIX="$HOME/LegacyClonk"
+export WINEPREFIX="$CLONKPREFIX/.wine"
 export WINEARCH=win64
 
 wine_setup()
@@ -14,22 +13,22 @@ wine_setup()
         exit 1
     fi
 
-    if [ ! -d "$HOME/LegacyClonk/wine" ] ; then
-        mkdir -p "$HOME/LegacyClonk/wine"
+    if [ ! -d "$WINEPREFIX" ] ; then
+        mkdir -p "$WINEPREFIX"
         wineboot -u
     fi
 }
 
 # TODO: Don't copy on every launch.
 #       There will be problems if an archive was unpacked.
-mkdir -p "$HOME/LegacyClonk"
-cp -r /usr/share/legacyclonk/* "$HOME/LegacyClonk/"
+mkdir -p "$CLONKPREFIX"
+cp -r /usr/share/legacyclonk/* "$CLONKPREFIX"
 
 if [[ "$#" = 0 ]]; then
-    "$HOME/LegacyClonk/clonk"
+    "$CLONKPREFIX/clonk"
 elif [[ "$#" = 1 ]] && [[ "$1" = "--editor" ]]; then
     wine_setup;
-    wine "$HOME/LegacyClonk/Editor.exe"
+    wine "$CLONKPREFIX/Editor.exe"
 else
     echo "Invalid command line options"
     exit 1
