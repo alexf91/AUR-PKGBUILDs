@@ -12,6 +12,9 @@ matrix:
         - name: "Build kalibrate-bladerf-git"
           env: TARGET=build PACKAGE=kalibrate-bladerf-git
 
+        - name: "Build legacyclonk-git"
+          env: TARGET=build PACKAGE=legacyclonk-git
+
         - name: "Build nerd-fonts-roboto-mono"
           env: TARGET=build PACKAGE=nerd-fonts-roboto-mono
 

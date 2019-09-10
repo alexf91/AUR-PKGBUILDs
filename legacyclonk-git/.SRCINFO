@@ -11,6 +11,7 @@ pkgbase = legacyclonk-git
 	license = LGPL
 	makedepends = git
 	makedepends = cmake
+	makedepends = p7zip
 	depends = glu
 	depends = libxpm
 	depends = sdl_mixer

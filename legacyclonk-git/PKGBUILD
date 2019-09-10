@@ -10,11 +10,10 @@ url="http://clonk.de"
 license=('ISC' 'CCPL:by-nc' 'custom:trademark' 'LGPL')
 provides=('legacyclonk')
 conflicts=('legacyclonk')
-makedepends=('7z')
 depends=('glu' 'libxpm' 'sdl_mixer' 'gtk2' 'libpng12'
          'libjpeg-turbo' 'desktop-file-utils' 'timidity++' 'glew')
 optdepends=('wine: Support for the editor')
-makedepends=('git' 'cmake')
+makedepends=('git' 'cmake' 'p7zip')
 source=("$pkgname::git+https://github.com/legacyclonk/LegacyClonk.git"
         "http://www.clonkx.de/rage/cr_full_linux.tar.bz2"
         "http://www.clonkx.de/rage/cr_full_win32.exe"
