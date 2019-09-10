@@ -1,6 +1,6 @@
 pkgbase = legacyclonk-git
 	pkgdesc = An entertaining, action-packed game of strategy, tactics, and skill.
-	pkgver = r319.9521a67
+	pkgver = r321.3df363d
 	pkgrel = 1
 	url = http://clonk.de
 	arch = i686
@@ -34,7 +34,7 @@ pkgbase = legacyclonk-git
 	md5sums = b1e7cf51b50fb60938543102cd09d397
 	md5sums = 537f7602ed6738da8b486de07577662d
 	md5sums = f87f34c51c8d5b46d13b9c5c65f4c5fe
-	md5sums = 3b55d44cbace886a4524599d93884ee8
+	md5sums = 6d228c1e953aaf06bbeebd63dd0beecf
 
 pkgname = legacyclonk-git
 

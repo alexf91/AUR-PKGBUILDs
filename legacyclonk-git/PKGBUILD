@@ -2,7 +2,7 @@
 # Contributor: George Tokmaji <tokmajigeorge@gmail.com>
 pkgname=legacyclonk-git
 _pkgname=legacyclonk
-pkgver=r319.9521a67
+pkgver=r321.3df363d
 pkgrel=1
 pkgdesc="An entertaining, action-packed game of strategy, tactics, and skill."
 arch=('i686' 'x86_64')
@@ -26,7 +26,7 @@ md5sums=('SKIP'
          'b1e7cf51b50fb60938543102cd09d397'
          '537f7602ed6738da8b486de07577662d'
          'f87f34c51c8d5b46d13b9c5c65f4c5fe'
-         '3b55d44cbace886a4524599d93884ee8')
+         '6d228c1e953aaf06bbeebd63dd0beecf')
 
 pkgver() {
   cd "$pkgname"
@@ -44,6 +44,7 @@ build() {
   mkdir -p build && cd build
 
   CFLAGS="-isystem /usr/include/harfbuzz" CXXFLAGS="-isystem /usr/include/harfbuzz" cmake \
+    -DCMAKE_BUILD_TYPE=Release \
     -DWITH_DEVELOPER_MODE=1 \
     ..
 
@@ -91,16 +92,6 @@ package() {
 
   # Link Clonk.exe to the clonk executable to support launch from the editor.
   ln -s "clonk" "$pkgdir/usr/share/$_pkgname/Clonk.exe"
-
-  # Change the group so that all users can write to it.
-  # TODO: Submit upstream patches to get rid of this
-  chgrp -R games "$pkgdir/usr/share/$_pkgname"
-  chmod -R g+w "$pkgdir/usr/share/$_pkgname"
-
-  chmod 754 "$pkgdir"/usr/share/$_pkgname/clonk
-  chown root:games "$pkgdir"/usr/share/$_pkgname/clonk
-  chmod 754 "$pkgdir"/usr/share/$_pkgname/c4group
-  chown root:games "$pkgdir"/usr/share/$_pkgname/c4group
 
   # Desktop and commandline launcher
   mkdir -p "$pkgdir/usr/share/applications"
