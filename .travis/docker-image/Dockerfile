@@ -1,4 +1,4 @@
-FROM archlinux/base:latest
+FROM agners/archlinuxarm:latest
 
 COPY arch-mirrorlist /etc/pacman.d/mirrorlist
 
@@ -12,9 +12,9 @@ RUN echo "builduser ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/builduser
 # Install yay and git. Git and its dependencies will be removed after installing
 # dependencies of the package we want to test.
 RUN cd /tmp \
- && curl -JL https://github.com/Jguer/yay/releases/download/v9.2.1/yay_9.2.1_x86_64.tar.gz \
+ && curl -JL https://github.com/Jguer/yay/releases/download/v9.2.1/yay_9.2.1_aarch64.tar.gz \
     | tar xfz - \
- && mv yay_9.2.1_x86_64/yay /usr/local/bin/yay \
+ && mv yay_9.2.1_aarch64/yay /usr/local/bin/yay \
  && pacman -S --noconfirm git
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
