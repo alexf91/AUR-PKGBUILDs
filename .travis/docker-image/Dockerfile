@@ -20,4 +20,8 @@ RUN cd /tmp \
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 USER builduser
+
+# Add GPG keys for some packages.
+RUN gpg --recv-keys A06C6D95DFC71475
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
