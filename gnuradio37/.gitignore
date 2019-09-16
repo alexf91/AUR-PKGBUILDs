@@ -1,0 +1,5 @@
+src
+pkg
+*.asc
+gnuradio-*.tar.gz
+gnuradio37-*.pkg.tar.xz
