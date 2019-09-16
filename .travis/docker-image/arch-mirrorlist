@@ -1,4 +1,3 @@
-Server = http://mirrors.advancedhosters.com/archlinux/$repo/os/$arch
 Server = http://mirrors.aggregate.org/archlinux/$repo/os/$arch
 Server = http://mirrors.liquidweb.com/archlinux/$repo/os/$arch
 Server = http://mirror.lty.me/archlinux/$repo/os/$arch
