@@ -6,9 +6,6 @@ matrix:
         - name: "Build dwarview-git"
           env: TARGET=build PACKAGE=dwarview-git
 
-        - name: "Build gnuradio37"
-          env: TARGET=build PACKAGE=gnuradio37
-
         - name: "Build kalibrate-bladerf-git"
           env: TARGET=build PACKAGE=kalibrate-bladerf-git
 
