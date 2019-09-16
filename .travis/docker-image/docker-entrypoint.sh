@@ -28,4 +28,4 @@ yay -S --noconfirm --asdeps ${makedepends[@]} ${depends[@]}
 # Git is not a dependency by default, so we remove it and build the package.o
 # Syncdeps is enabled, so it will be reinstalled if necessary.
 sudo pacman --noconfirm -Rs git
-makepkg $MAKEPKG_FLAGS
+PKGEXT=.pkg.tar makepkg $MAKEPKG_FLAGS
