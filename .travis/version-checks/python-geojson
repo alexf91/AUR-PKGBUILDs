@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+
+"""Check for new versions of python-geojson by reading Github tags."""
+
+import os
+import sys
+
+from github import Github
+
+import semver
+
+from pkgbuild import SRCINFO
+
+
+# Get the versions on Github and the repository.
+g = Github(os.environ.get("GITHUB_ACCESS_TOKEN"))
+upstream = g.get_repo("jazzband/geojson").get_tags()[0].name
+current = SRCINFO("python-geojson/.SRCINFO").content["pkgver"]
+
+print("Upstream version: %s" % upstream)
+print("AUR version: %s" % current)
+
+if semver.compare(current, upstream) < 0:
+    print("Package is out of date.")
+    sys.exit(1)
+elif semver.compare(current, upstream) > 0:
+    print("Package is newer than upstream release.")
+    sys.exit(1)

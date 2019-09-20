@@ -28,6 +28,11 @@ matrix:
         - name: "Check version of python-aiomonitor"
           env: TARGET=version PACKAGE=python-aiomonitor
 
+        - name: "Build python-geojson"
+          env: TARGET=build PACKAGE=python-geojson
+        - name: "Check version of python-geojson"
+          env: TARGET=version PACKAGE=python-geojson
+
         - name: "Build python-grpcio-tools"
           env: TARGET=build PACKAGE=python-grpcio-tools
         - name: "Check version of python-grpcio-tools"
