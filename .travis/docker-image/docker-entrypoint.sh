@@ -13,6 +13,7 @@ if [[ $# != 1 ]]; then
 fi
 
 MAKEPKG_FLAGS="--noconfirm --syncdeps --cleanbuild --install"
+export PKGEXT=.pkg.tar
 
 # Copy the package we want to build to a separate directory to avoid cluttering
 # the base repo.
@@ -29,3 +30,7 @@ yay -S --noconfirm --asdeps ${makedepends[@]} ${depends[@]}
 # Syncdeps is enabled, so it will be reinstalled if necessary.
 sudo pacman --noconfirm -Rs git
 makepkg $MAKEPKG_FLAGS
+
+# Check the package with namcap
+sudo pacman --noconfirm -S namcap
+namcap PKGBUILD *"$PKGEXT"
