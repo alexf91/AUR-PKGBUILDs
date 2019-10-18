@@ -2,6 +2,7 @@
 
 """Check for new versions of the python-grpc package in the community repository."""
 
+import json
 import re
 import sys
 import time
@@ -30,12 +31,14 @@ regex = re.compile(r"<h2>python-grpcio (?P<version>\d+\.\d+\.\d+)-\d+</h2>")
 
 upstream = regex.search(page).group("version")
 current = SRCINFO("python-grpcio-tools/.SRCINFO").content["pkgver"]
+pypi = requests.get("https://pypi.org/pypi/grpcio-tools/json").json()["info"]["version"]
 
 
+print("PyPi version: %s" % pypi)
 print("Upstream version: %s" % upstream)
 print("AUR version: %s" % current)
 
-if semver.compare(current, upstream) < 0:
+if semver.compare(current, upstream) < 0 and semver.compare(current, pypi) < 0:
     print("Package is out of date.")
     sys.exit(1)
 elif semver.compare(current, upstream) > 0:
