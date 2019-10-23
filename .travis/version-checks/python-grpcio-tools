@@ -41,6 +41,3 @@ print("AUR version: %s" % current)
 if semver.compare(current, upstream) < 0 and semver.compare(current, pypi) < 0:
     print("Package is out of date.")
     sys.exit(1)
-elif semver.compare(current, upstream) > 0:
-    print("Package is newer than upstream release.")
-    sys.exit(1)
