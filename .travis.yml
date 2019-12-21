@@ -53,6 +53,11 @@ matrix:
         - name: "Check version of python-vunit_hdl"
           env: TARGET=version PACKAGE=python-vunit_hdl
 
+        - name: "Build qsstv"
+          env: TARGET=build PACKAGE=qsstv
+        - name: "Check version of qsstv"
+          env: TARGET=version PACKAGE=qsstv
+
         - name: "Build steam-fonts"
           env: TARGET=build PACKAGE=steam-fonts
 

@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+
+"""Check for new versions of qsstv by parsing the website."""
+
+import re
+import sys
+import time
+
+import requests
+
+import semver
+
+from pkgbuild import SRCINFO
+
+
+# Get the latest version from the website.
+for _ in range(5):
+    try:
+        response = requests.get("http://users.telenet.be/on4qz/qsstv/downloads/")
+        response.raise_for_status()
+        page = response.text
+    except requests.RequestException:
+        time.sleep(5)
+
+# Search for the version string in the download URL.
+regex = re.compile(r'href="qsstv_(?P<version>\d+\.\d+\.\d+).tar.gz"')
+
+upstream = max([m.group("version") for m in regex.finditer(response.text)])
+current = SRCINFO("qsstv/.SRCINFO").content["pkgver"]
+
+print("Upstream version: %s" % upstream)
+print("AUR version: %s" % current)
+
+if semver.compare(current, upstream) < 0:
+    print("Package is out of date.")
+    sys.exit(1)
+elif semver.compare(current, upstream) > 0:
+    print("Package is newer than upstream release.")
+    sys.exit(1)
