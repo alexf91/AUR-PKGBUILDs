@@ -18,8 +18,7 @@ build() {
   cd "$_pkgname-$pkgver"
   mkdir -p build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX="$pkgdir/usr" \
-        ..
+  cmake -DCMAKE_INSTALL_PREFIX="/usr" ..
   make
 }
 
@@ -28,5 +27,5 @@ package() {
   install -m644 -D COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
   install -m644 -D README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
   cd "build"
-  make install
+  make DESTDIR="$pkgdir" install
 }
