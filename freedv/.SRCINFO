@@ -7,7 +7,6 @@ pkgbase = freedv
 	arch = x86_64
 	license = GPL2
 	makedepends = cmake
-	depends = glibc
 	depends = portaudio
 	depends = hamlib
 	depends = sox
@@ -15,6 +14,7 @@ pkgbase = freedv
 	depends = codec2
 	depends = speex
 	depends = libao
+	depends = lpcnet-freedv
 	source = https://github.com/drowe67/freedv-gui/archive/v1.4.tar.gz
 	sha512sums = f33c206497761914eb09b67983771da18bc5be70d1a333ae2d57b9d0f9c579f567a75aea4b67068dd7fd1856b962b37cc6eb4dc895acaab4d70e22718443338f
 

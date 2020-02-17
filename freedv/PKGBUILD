@@ -8,8 +8,7 @@ pkgdesc="Digital Voice for Radio Amateurs"
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://freedv.org/"
-depends=('glibc' 'portaudio' 'hamlib' 'sox' 'wxgtk' 'codec2' 'speex' 'libao')
-#depends=('glibc' 'portaudio' 'hamlib' 'wxgtk' 'codec2' 'speex')
+depends=('portaudio' 'hamlib' 'sox' 'wxgtk' 'codec2' 'speex' 'libao' 'lpcnet-freedv')
 makedepends=('cmake')
 source=("https://github.com/drowe67/freedv-gui/archive/v$pkgver.tar.gz")
 sha512sums=('f33c206497761914eb09b67983771da18bc5be70d1a333ae2d57b9d0f9c579f567a75aea4b67068dd7fd1856b962b37cc6eb4dc895acaab4d70e22718443338f')
@@ -17,16 +16,16 @@ sha512sums=('f33c206497761914eb09b67983771da18bc5be70d1a333ae2d57b9d0f9c579f567a
 
 build() {
   cd "$pkgname-gui-$pkgver"
-  mkdir -p build_linux
-  cd build_linux
-  cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR:PATH=lib -DUSE_STATIC_SOX=TRUE -DUSE_STATIC_SPEEXDSP=FALSE -DUSE_STATIC_CODEC2=FALSE -DBOOTSTRAP_WXWIDGETS=FALSE
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX="/usr" ..
   make
 }
 
 package() {
   cd "$pkgname-gui-$pkgver"
   install -m644 -D COPYING "$pkgdir/usr/share/licenses/freedv/COPYING"
-  install -m644 -D README.txt "$pkgdir/usr/share/doc/freedv/README.txt"
-  cd "build_linux"
+  install -m644 -D README.md "$pkgdir/usr/share/doc/freedv/README.md"
+  cd "build"
   make DESTDIR="$pkgdir" install
 }
