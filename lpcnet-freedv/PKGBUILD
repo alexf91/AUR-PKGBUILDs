@@ -1,0 +1,32 @@
+# Maintainer: Alexander Fasching <fasching.a91@gmail.com>
+
+pkgname=lpcnet-freedv
+_pkgname=LPCNet
+pkgver="0.1"
+pkgrel=1
+pkgdesc="Experimental Neural Net speech coding for FreeDV"
+arch=('i686' 'x86_64')
+license=('GPL2')
+url="https://github.com/drowe67/LPCNet"
+depends=('codec2')
+makedepends=('cmake')
+source=("https://github.com/drowe67/LPCNet/archive/v$pkgver.tar.gz")
+sha512sums=('2213835930bd59f70ad67066b3ebfbafde2b1cdee0f191b0eace900322100178dcbb3538d0bb99ea8784266fdc31a6a2638d19dd9ea74a1febacc638a5993bbe')
+
+
+build() {
+  cd "$_pkgname-$pkgver"
+  mkdir -p build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX="$pkgdir/usr" \
+        ..
+  make
+}
+
+package() {
+  cd "$_pkgname-$pkgver"
+  install -m644 -D COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  install -m644 -D README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+  cd "build"
+  make install
+}
