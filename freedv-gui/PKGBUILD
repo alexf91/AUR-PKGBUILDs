@@ -1,7 +1,7 @@
 # Maintainer: Alexander Fasching <fasching.a91@gmail.com>
 # Contributor: Andreas Schreiner <andreas.schreiner@sonnenmulde.at>
 
-pkgname=freedv
+pkgname=freedv-gui
 pkgver="1.4"
 pkgrel=1
 pkgdesc="Digital Voice for Radio Amateurs"
@@ -15,7 +15,7 @@ sha512sums=('f33c206497761914eb09b67983771da18bc5be70d1a333ae2d57b9d0f9c579f567a
 
 
 build() {
-  cd "$pkgname-gui-$pkgver"
+  cd "$pkgname-$pkgver"
   mkdir -p build
   cd build
   cmake -DCMAKE_INSTALL_PREFIX="/usr" -DCMAKE_BUILD_TYPE=Release ..
@@ -23,7 +23,7 @@ build() {
 }
 
 package() {
-  cd "$pkgname-gui-$pkgver"
+  cd "$pkgname-$pkgver"
   install -m644 -D COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
   install -m644 -D README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
   cd "build"
