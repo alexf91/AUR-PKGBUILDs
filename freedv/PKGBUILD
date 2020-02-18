@@ -18,14 +18,14 @@ build() {
   cd "$pkgname-gui-$pkgver"
   mkdir -p build
   cd build
-  cmake -DCMAKE_INSTALL_PREFIX="/usr" ..
+  cmake -DCMAKE_INSTALL_PREFIX="/usr" -DCMAKE_BUILD_TYPE=Release ..
   make
 }
 
 package() {
   cd "$pkgname-gui-$pkgver"
-  install -m644 -D COPYING "$pkgdir/usr/share/licenses/freedv/COPYING"
-  install -m644 -D README.md "$pkgdir/usr/share/doc/freedv/README.md"
+  install -m644 -D COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  install -m644 -D README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
   cd "build"
   make DESTDIR="$pkgdir" install
 }
