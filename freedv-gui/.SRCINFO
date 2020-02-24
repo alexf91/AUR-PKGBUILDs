@@ -1,4 +1,4 @@
-pkgbase = freedv
+pkgbase = freedv-gui
 	pkgdesc = Digital Voice for Radio Amateurs
 	pkgver = 1.4
 	pkgrel = 1
@@ -14,9 +14,8 @@ pkgbase = freedv
 	depends = codec2
 	depends = speex
 	depends = libao
-	depends = lpcnet-freedv
 	source = https://github.com/drowe67/freedv-gui/archive/v1.4.tar.gz
 	sha512sums = f33c206497761914eb09b67983771da18bc5be70d1a333ae2d57b9d0f9c579f567a75aea4b67068dd7fd1856b962b37cc6eb4dc895acaab4d70e22718443338f
 
-pkgname = freedv
+pkgname = freedv-gui
 
