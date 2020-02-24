@@ -15,7 +15,9 @@ pkgbase = freedv-gui
 	depends = speex
 	depends = libao
 	source = https://github.com/drowe67/freedv-gui/archive/v1.4.tar.gz
+	source = optional-lpcnetfreedv.patch
 	sha512sums = f33c206497761914eb09b67983771da18bc5be70d1a333ae2d57b9d0f9c579f567a75aea4b67068dd7fd1856b962b37cc6eb4dc895acaab4d70e22718443338f
+	sha512sums = bf0055f6251950495cb07d54e2ad7783c62bd87f3654e5ee52e08af19d78c38f9ea51d103b2d1146ec13f67f368369cd3f99218113075b020f5935a6a7128504
 
 pkgname = freedv-gui
 
