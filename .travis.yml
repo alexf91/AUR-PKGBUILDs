@@ -9,10 +9,10 @@ matrix:
         - name: "Build dwarview-git"
           env: TARGET=build PACKAGE=dwarview-git
 
-        - name: "Build freedv"
-          env: TARGET=build PACKAGE=freedv
-        - name: "Check version of freedv"
-          env: TARGET=version PACKAGE=freedv
+        - name: "Build freedv-gui"
+          env: TARGET=build PACKAGE=freedv-gui
+        - name: "Check version of freedv-gui"
+          env: TARGET=version PACKAGE=freedv-gui
 
         - name: "Build kalibrate-bladerf-git"
           env: TARGET=build PACKAGE=kalibrate-bladerf-git
