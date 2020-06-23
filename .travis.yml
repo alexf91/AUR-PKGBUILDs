@@ -23,11 +23,6 @@ matrix:
         - name: "Build nerd-fonts-droid-sans-mono"
           env: TARGET=build PACKAGE=nerd-fonts-droid-sans-mono
 
-        - name: "Build python-aioconsole"
-          env: TARGET=build PACKAGE=python-aioconsole
-        - name: "Check version of python-aioconsole"
-          env: TARGET=version PACKAGE=python-aioconsole
-
         - name: "Build python-aiomonitor"
           env: TARGET=build PACKAGE=python-aiomonitor
         - name: "Check version of python-aiomonitor"
