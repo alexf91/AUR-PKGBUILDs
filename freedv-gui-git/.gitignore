@@ -1,0 +1,7 @@
+LPCNet
+freedv-gui
+src
+pkg
+*.tar.xz
+*.tar.zst
+*.tar.gz

@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0121242..a43985d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -260,7 +260,16 @@ else(CODEC2_BUILD_DIR)
+         get_target_property(CODEC2_INCLUDE_DIRS codec2 INTERFACE_INCLUDE_DIRECTORIES)
+         message(STATUS "  codec2 library: ${CODEC2_LIBRARY}")
+         message(STATUS "  codec2 headers: ${CODEC2_INCLUDE_DIRS}")
+-        find_package(lpcnetfreedv REQUIRED)
++        if(LPCNET_BUILD_DIR)
++            message(STATUS "Using LPCNet from build directory...")
++            find_package(lpcnet REQUIRED
++                NO_DEFAULT_PATH
++                PATHS ${LPCNET_BUILD_DIR}
++                CONFIGS lpcnetfreedv.cmake
++            )
++        else()
++            find_package(lpcnetfreedv REQUIRED)
++        endif()
+     else()
+         # Try to find manually
+         find_path(CODEC2_INCLUDE_DIRS codec2.h
